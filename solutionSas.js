@@ -184,7 +184,7 @@ const trips = [
 ];
 let tickets = [];
 let nextTicketId = 1;
-let choice = null;
+
 
 
 
@@ -280,8 +280,11 @@ return foundTicket;
 }
 
 
-while(choice !== 0){
 
+function mainMenu(){
+
+let choice = null;
+while(choice !== 0){
 console.log("=================================");
 console.log("RAILWAY MANAGER");
 console.log("=================================");
@@ -344,9 +347,9 @@ break;
 default : console.log("Choix invalide. Veuillez réessayer.");
 break;
 }
-
+}
 }
 
-
+mainMenu();
 
 
