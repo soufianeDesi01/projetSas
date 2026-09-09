@@ -268,7 +268,23 @@ console.log("Ticket annulé avec succès.");
 }
 
 
-
+// 5. Rechercher un ticket
+function searchTicketByName(tickets, passengerName){
+let found = false;
+for(let i = 0 ; i < tickets.length ; i++){
+if(tickets[i].passengerName === passengerName){
+console.log("Ticket #" + tickets[i].id);
+console.log("Passager :", tickets[i].passengerName);
+console.log("Trajet :", tickets[i].tripId);
+console.log("Place :", tickets[i].seatNumber);
+console.log("Prix :", tickets[i].price, "DH");
+found = true;
+}
+}
+if(found === false){
+console.log("Aucun ticket trouvé pour ce passager.")
+}
+}
 
 
 while(choice !== 0){
@@ -313,6 +329,13 @@ case 4:
 let ticketId = Number(prompt("ID du ticket à annuler : "));
 AnnuleTicket(trips, tickets, ticketId);
 break;
+
+
+case 5:
+let searchName = prompt("Nom du passager : ");
+searchTicketByName(tickets, searchName);
+break;
+
 
 default : console.log("Choix invalide. Veuillez réessayer.");
 break;
