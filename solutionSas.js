@@ -254,7 +254,7 @@ break;
 }
 }
 if(foundTicket === null){
-console.log("Aucun ticket trouvé avec cet ID.");
+return "Aucun ticket trouvé avec cet ID.";
 }else { 
 for(let j = 0; j < arr.length; j++){
 if(arr[j].id === foundTicket.tripId){
@@ -263,27 +263,20 @@ break;
 }
 }
 tickets.splice(ticketIndex, 1);
-console.log("Ticket annulé avec succès.");
+return "Ticket annulé avec succès.";
 }
 }
 
 
 // 5. Rechercher un ticket
 function searchTicketByName(tickets, passengerName){
-let found = false;
-for(let i = 0 ; i < tickets.length ; i++){
+let foundTicket = [];
+for(let i = 0; i < tickets.length; i++){
 if(tickets[i].passengerName === passengerName){
-console.log("Ticket #" + tickets[i].id);
-console.log("Passager :", tickets[i].passengerName);
-console.log("Trajet :", tickets[i].tripId);
-console.log("Place :", tickets[i].seatNumber);
-console.log("Prix :", tickets[i].price, "DH");
-found = true;
+foundTicket.push(tickets[i]);
 }
 }
-if(found === false){
-console.log("Aucun ticket trouvé pour ce passager.")
-}
+return foundTicket;
 }
 
 
@@ -327,13 +320,24 @@ break;
 
 case 4:
 let ticketId = Number(prompt("ID du ticket à annuler : "));
-AnnuleTicket(trips, tickets, ticketId);
+console.log(AnnuleTicket(trips, tickets, ticketId));
 break;
 
 
 case 5:
 let searchName = prompt("Nom du passager : ");
-searchTicketByName(tickets, searchName);
+let foundTickets = searchTicketByName(tickets, searchName);
+if(foundTickets.length === 0){
+console.log("Aucun ticket trouvé pour ce passager.");
+}else{
+for(let i = 0 ; i < foundTickets.length ; i++){
+console.log("Ticket #" + foundTickets[i].id);
+console.log("Passager :", foundTickets[i].passengerName);
+console.log("Trajet :", foundTickets[i].tripId);
+console.log("Place :", foundTickets[i].seatNumber);
+console.log("Prix :", foundTickets[i].price, "DH");
+}
+}
 break;
 
 
