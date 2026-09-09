@@ -211,15 +211,15 @@ break;
 }
 }
 if(foundTrip === null){
-console.log("Aucun trajet trouvé avec cet ID.");
+return "Aucun trajet trouvé avec cet ID.";
 }else if(foundTrip.availableSeats > 0){
 let newTicket = {id: nextTicketId, passengerName: passengerName, tripId: tripId, seatNumber: 51 - foundTrip.availableSeats, price: foundTrip.price};
 tickets.push(newTicket);
 foundTrip.availableSeats--;
 nextTicketId++;
-console.log("Ticket acheté avec succès.");
+return "Ticket acheté avec succès.";
 }else{
-console.log("Aucune place disponible pour ce trajet.");
+return "Aucune place disponible pour ce trajet.";
 }
 }
 
@@ -317,7 +317,7 @@ break;
 case 2:
 let passengerName = prompt("Nom du passager : ");
 let tripId = Number(prompt("ID du trajet : "));
-buyTicket(trips, tickets, passengerName, tripId);
+console.log(buyTicket(trips, tickets, passengerName, tripId));
 break;
 
 case 3 :
