@@ -280,16 +280,23 @@ return foundTicket;
 }
 
 
+// 6. Filtrer les trajets
+function filtrerTrajets(trips, nameDeparture){
+let foundTrips = [];
+for(let i = 0 ; i < trips.length ; i++){
+if(trips[i].departure === nameDeparture){
+foundTrips.push(trips[i]);
+}
+}
+return foundTrips;
+}
 
-function mainMenu(){
 
-let choice = null;
-while(choice !== 0){
+// Menu
+function displayMenu(){
 console.log("=================================");
 console.log("RAILWAY MANAGER");
 console.log("=================================");
-
-
 console.log("1. Afficher les trajets");
 console.log("2. Acheter un ticket");
 console.log("3. Afficher les tickets");
@@ -298,6 +305,14 @@ console.log("5. Rechercher un ticket");
 console.log("6. Filtrer les trajets");
 console.log("7. Trier les trajets");
 console.log("0. Quitter");
+}
+
+function mainMenu(){
+
+let choice = null;
+while(choice !== 0){
+
+displayMenu();
 
 choice = Number(prompt("Votre choix : "));
 
@@ -344,11 +359,29 @@ console.log("Prix :", foundTickets[i].price, "DH");
 break;
 
 
+case 6:
+let departureCity = prompt("Ville de départ : ");
+let foundTrips = filtrerTrajets(trips, departureCity)
+if(foundTrips.length === 0){
+console.log("Aucun trajet trouvé depuis cette ville.");
+}else{
+for(let i = 0 ; i < foundTrips.length ; i++){
+console.log(foundTrips[i].departure,"->",foundTrips[i].destination);
+}
+}
+break;
+
 default : console.log("Choix invalide. Veuillez réessayer.");
 break;
 }
 }
 }
+
+
+
+
+
+
 
 mainMenu();
 
