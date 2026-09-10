@@ -8,7 +8,7 @@ const trips = [
         departureTime: "07:30",
         arrivalTime: "08:30",
         price: 25,
-        availableSeats: 50
+        availableSeats: 47
     },
     {
         id: 2,
@@ -17,7 +17,7 @@ const trips = [
         departureTime: "08:00",
         arrivalTime: "10:30",
         price: 90,
-        availableSeats: 50
+        availableSeats: 49
     },
     {
         id: 3,
@@ -26,7 +26,7 @@ const trips = [
         departureTime: "09:00",
         arrivalTime: "13:00",
         price: 140,
-        availableSeats: 50
+        availableSeats: 49
     },
     {
         id: 4,
@@ -35,7 +35,7 @@ const trips = [
         departureTime: "09:15",
         arrivalTime: "11:00",
         price: 65,
-        availableSeats: 50
+        availableSeats: 49
     },
     {
         id: 5,
@@ -182,16 +182,17 @@ const trips = [
         availableSeats: 50
     }
 ];
-const tickets = [];
-// const tickets = [
-//     { id: 1, passengerName: "Zakaria", tripId: 1, seatNumber: 1, price: 25 },
-//     { id: 2, passengerName: "Adil", tripId: 1, seatNumber: 2, price: 25 },
-//     { id: 3, passengerName: "Aya", tripId: 2, seatNumber: 1, price: 90 },
-//     { id: 4, passengerName: "Omar", tripId: 3, seatNumber: 1, price: 140 },
-//     { id: 5, passengerName: "Yassine", tripId: 4, seatNumber: 1, price: 65 },
-// { id: 6, passengerName: "Sara", tripId: 1, seatNumber: 3, price: 25 }
-// ];
-let nextTicketId = 1;
+
+const tickets = [
+    { id: 1, passengerName: "Zakaria", tripId: 1, seatNumber: 1, price: 25 },
+    { id: 2, passengerName: "Adil", tripId: 1, seatNumber: 2, price: 25 },
+    { id: 3, passengerName: "Aya", tripId: 2, seatNumber: 1, price: 90 },
+    { id: 4, passengerName: "Omar", tripId: 3, seatNumber: 1, price: 140 },
+    { id: 5, passengerName: "Yassine", tripId: 4, seatNumber: 1, price: 65 },
+    { id: 6, passengerName: "Sara", tripId: 1, seatNumber: 3, price: 25 }
+];
+
+let nextTicketId = 7;
 
 
 
@@ -236,7 +237,22 @@ break;
 if(foundTrip === null){
 return "Trajet introuvable.";
 }else if(foundTrip.availableSeats > 0){
-let newTicket = {id: nextTicketId, passengerName: passengerName, tripId: tripId, seatNumber: 51 - foundTrip.availableSeats, price: foundTrip.price};
+    let availableSeat = null;
+    for(let i = 1; i <= 50; i++){
+    let seatUsed = false;
+    for(let j = 0; j < tickets.length; j++){
+    if(tickets[j].tripId === foundTrip.id && tickets[j].seatNumber === i){
+
+    seatUsed = true;
+    break;
+    }
+    }
+    if(seatUsed === false){
+    availableSeat = i;
+    break;
+    }
+    }
+let newTicket = {id: nextTicketId, passengerName: passengerName, tripId: tripId, seatNumber: availableSeat, price: foundTrip.price};
 tickets.push(newTicket);
 foundTrip.availableSeats--;
 nextTicketId++;
@@ -368,11 +384,7 @@ case 1 :
 displayTrips(trips);
 break;
 
-// case 2:
-// let passengerName = prompt("Nom du passager : ");
-// let tripId = Number(prompt("ID du trajet : "));
-// console.log(buyTicket(trips, tickets, passengerName, tripId));
-// break;
+
 case 2:
 let passengerName = prompt("Nom du passager : ");
 let tripId = Number(prompt("ID du trajet : "));
