@@ -191,7 +191,7 @@ const tickets = [
     { id: 5, passengerName: "Yassine", tripId: 4, seatNumber: 1, price: 65 },
     { id: 6, passengerName: "Sara", tripId: 1, seatNumber: 3, price: 25 }
 ];
-
+ 
 let nextTicketId = 7;
 
 
@@ -350,6 +350,48 @@ console.log(arr[i].departure,"->",arr[i].destination," :",arr[i].price,"DH");
 }
 
 
+//totalticket
+function totalticket(arr){
+let totaltecket = arr.length;
+return totaltecket;
+}
+
+
+// total price
+function totalRevenue(arr){
+let totalprix = 0;
+for(let i = 0; i < arr.length; i++){
+totalprix += arr[i].price;
+}
+return totalprix;
+}
+
+
+// Trajet le plus vendu
+function mostSoldTrip(trips, tickets){
+if(tickets.length === 0){
+return "Aucun ticket vendu.";
+}
+let counts = [];
+for(let i = 0; i < trips.length; i++){
+let count = 0;
+for(let j = 0; j < tickets.length; j++){
+if(tickets[j].tripId === trips[i].id){
+count++;
+}
+}
+counts.push(count);
+}
+let indexmax = 0;
+let max = counts[0];
+for(let i = 1; i < counts.length; i++){
+if(max < counts[i]){
+max = counts[i];
+indexmax = i;
+}
+}
+return trips[indexmax].departure + " -> " + trips[indexmax].destination + " : " + max + " tickets vendus";
+}
 
 // Menu
 function displayMenu(){
@@ -363,6 +405,7 @@ console.log("4. Annuler un ticket");
 console.log("5. Rechercher un ticket");
 console.log("6. Filtrer les trajets");
 console.log("7. Trier les trajets");
+console.log("8. Statistiques");
 console.log("0. Quitter");
 }
 
@@ -432,6 +475,12 @@ let sortedTrips = sortTripsByPrice(trips);
 displayTripSummary(sortedTrips)
 break;
 
+case 8:
+console.log("Nombre total de tickets :", totalticket(tickets));
+console.log("Chiffre d'affaires total :", totalRevenue(tickets), "DH");
+console.log(mostSoldTrip(trips, tickets));
+break;
+
 
 default : console.log("Choix invalide. Veuillez réessayer.");
 break;
@@ -440,5 +489,6 @@ break;
 
 
 mainMenu();
+
 
 
